@@ -45,7 +45,7 @@ public class DicionarioDAO
             }
             
             return true;
-        }catch(IOException ioe){
+        } catch(IOException ioe){
             return false;
         }
     }
@@ -70,12 +70,12 @@ public class DicionarioDAO
             
             dicionario.setPalavras(palavras);
         }catch(IOException ioe){
-            //
+            
         }
         
     }
     
-    // Método Acessor e Modificador
+    // Métodos Acessores e Modificadores
     public Dicionario getDicionario()
     {
         return dicionario;

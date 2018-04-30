@@ -127,7 +127,7 @@ public class FrameDicionario extends JFrame
         menuCadastrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_MASK));
         menuTraduzir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.ALT_MASK));
                
-        // Itens Menus :Icones
+        // Itens dos Menus :Icones
         menuSobre.setIcon(new ImageIcon(getClass().getResource("/icones/information.png")));
         menuSair.setIcon(new ImageIcon(getClass().getResource("/icones/door_out.png")));
         menuSalvar.setIcon(new ImageIcon(getClass().getResource("/icones/save.png")));
@@ -136,7 +136,7 @@ public class FrameDicionario extends JFrame
         menuCadastrar.setIcon(new ImageIcon(getClass().getResource("/icones/add.png")));
         menuTraduzir.setIcon(new ImageIcon(getClass().getResource("/icones/refresh.png")));
         
-        // Paineis :Layouts
+        // Painéis :Layouts
         pnlCentral.setLayout(new BorderLayout(10, 0));
         pnlCentral.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnlCadastro.setLayout(new GridLayout(8, 1, 0, 10));
@@ -182,7 +182,7 @@ public class FrameDicionario extends JFrame
         btnExcluir.setIcon(new ImageIcon(getClass().getResource("/icones/delete.png")));
         btnTraduzir.setIcon(new ImageIcon(getClass().getResource("/icones/refresh.png")));
         
-        // Campos :Propriedade
+        // Campos :Propriedades
         txtPalavraC.setToolTipText("Informe a palavra no idioma inglês.");
         txtPalavraT.setToolTipText("Informe a palavra a ser traduzida.");
         txtTraducaoC.setToolTipText("Informe a tradução da palavra no idioma português.");
@@ -264,7 +264,9 @@ public class FrameDicionario extends JFrame
                 String opcoes[] = {"Sim", "Não"};
         
                 int resposta =  JOptionPane.showOptionDialog(
-                                    null, "Você deseja realmente sair do dicionário?", "CONFIRMAÇÃO DE SAÍDA", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcoes, opcoes[0]
+                                    null, "Você deseja realmente sair do dicionário?", 
+                                    "CONFIRMAÇÃO DE SAÍDA", JOptionPane.DEFAULT_OPTION, 
+                                    JOptionPane.WARNING_MESSAGE, null, opcoes, opcoes[0]
                                 );
 
                 if (resposta == JOptionPane.YES_OPTION) {
@@ -277,7 +279,7 @@ public class FrameDicionario extends JFrame
             {
                 modelLista.clear(); // Limpa a lista
                 
-                dao.ler(); // Ler arquivo e preenche o ArrayList<Palavra>
+                dao.ler(); // Lê arquivo e preenche o ArrayList<Palavra>
                 
                 dicionario = dao.getDicionario(); // Retorna o dicionário preenchido
                 palavras   = dicionario.getPalavras(); // Retorna o ArrayList de palavras
@@ -312,11 +314,13 @@ public class FrameDicionario extends JFrame
             String opcoes[] = {"Sim", "Não"};
         
             int resposta =  JOptionPane.showOptionDialog(
-                                null, "Você deseja realmente sair do dicionário?", "CONFIRMAÇÃO DE SAÍDA", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcoes, opcoes[0]
+                                null, "Você deseja realmente sair do dicionário?", 
+                                "CONFIRMAÇÃO DE SAÍDA", JOptionPane.DEFAULT_OPTION, 
+                                JOptionPane.WARNING_MESSAGE, null, opcoes, opcoes[0]
                             );
 
             if (resposta == JOptionPane.YES_OPTION) {
-                System.exit(0); // Fechando aplicação
+                System.exit(0); // Fechando o sistema
             }
         });   
         
@@ -324,11 +328,13 @@ public class FrameDicionario extends JFrame
             
             if(dao.gravar(dicionario)){
                 JOptionPane.showMessageDialog(
-                    this, "Dicionário salvo com sucesso!", "DICIONÁRIO SALVO", JOptionPane.QUESTION_MESSAGE
+                    this, "Dicionário salvo com sucesso!", 
+                    "DICIONÁRIO SALVO", JOptionPane.QUESTION_MESSAGE
                 );
             } else {
                 JOptionPane.showMessageDialog(
-                    this, "Houve um erro com o salvamento!", "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE
+                    this, "Houve um erro com ao salvar o dicionário!", 
+                    "ERRO AO SALVAR", JOptionPane.ERROR_MESSAGE
                 );
             }            
         });   
@@ -336,7 +342,7 @@ public class FrameDicionario extends JFrame
         menuCarregar.addActionListener((ActionEvent ae) -> {
             modelLista.clear(); // Limpa a lista
                 
-            dao.ler(); // Ler arquivo e preenche o ArrayList<Palavra>
+            dao.ler(); // Lê arquivo e preenche o ArrayList<Palavra>
 
             dicionario = dao.getDicionario(); // Retorna o dicionário preenchido
             palavras   = dicionario.getPalavras(); // Retorna o ArrayList de palavrass
@@ -411,17 +417,19 @@ public class FrameDicionario extends JFrame
         btnCadastrar.addActionListener((ActionEvent ae) -> {
             if(txtPalavraC.getText().isEmpty() || txtTraducaoC.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(
-                    this, "Por favor, preencha todos os campos.", "CAMPOS VAZIOS", JOptionPane.WARNING_MESSAGE
+                    this, "Por favor, preencha todos os campos!", 
+                        "CAMPOS VAZIOS", JOptionPane.WARNING_MESSAGE
                 );
             } else {
                 // Adiciona a palavra com tradução
-                dicionario.adicionar(new Palavra(txtTraducaoC.getText().trim(), txtPalavraC.getText().trim()));
+                dicionario.adicionar(new Palavra(txtTraducaoC.getText().trim(), 
+                                                 txtPalavraC.getText().trim()));
                 
                 modelLista.clear(); // Limpa a lista
                 
                 palavras = dicionario.getPalavras(); // Retorna o ArrayList de palavras
                 
-                // Preencha a lista com as palavras montadas
+                // Preenche a lista com as palavras montadas
                 palavras.forEach((Palavra palavra) -> {
                     modelLista.addElement(palavra.toString());    
                 });
@@ -439,18 +447,22 @@ public class FrameDicionario extends JFrame
         btnExcluir.addActionListener((ActionEvent ae) -> {
             if(listPalavras.getModel().getSize() == 0) {
                 JOptionPane.showMessageDialog(
-                    this, "Não existe nenhuma palavra cadastrada.", "LISTA VAZIA", JOptionPane.WARNING_MESSAGE
+                    this, "Não existe nenhuma palavra cadastrada!", 
+                    "DICIONÁRIO VAZIO", JOptionPane.WARNING_MESSAGE
                 );  
             } else {
                 if(listPalavras.getSelectedValue() == null) {
                     JOptionPane.showMessageDialog(
-                        this, "Nenhuma palavra foi selecionado.", "PALAVRA NÃO SELECIONADO", JOptionPane.WARNING_MESSAGE
+                        this, "Nenhuma palavra foi selecionada!", 
+                        "PALAVRA NÃO SELECIONADA", JOptionPane.WARNING_MESSAGE
                     );
                 } else {
                     String opcoes[] = {"Sim", "Não"};
                     
                     int resposta =  JOptionPane.showOptionDialog(
-                                        null, "Você deseja realmente excluir essa palavra? ", "CONFIRMAÇÃO DE EXCLUSÃO", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcoes, opcoes[0]
+                                        null, "Você deseja realmente excluir essa palavra? ", 
+                                        "CONFIRMAÇÃO DE EXCLUSÃO", JOptionPane.DEFAULT_OPTION, 
+                                        JOptionPane.WARNING_MESSAGE, null, opcoes, opcoes[0]
                                     );
 
                     if (resposta == JOptionPane.YES_OPTION) {
@@ -470,10 +482,11 @@ public class FrameDicionario extends JFrame
         btnTraduzir.addActionListener((ActionEvent ae) -> {
             if(txtPalavraT.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(
-                    this, "Por favor, preencha o campo PALAVRA.", "CAMPO VAZIO", JOptionPane.WARNING_MESSAGE
+                    this, "Por favor, preencha o campo PALAVRA!", 
+                    "CAMPO PALAVRA VAZIO", JOptionPane.WARNING_MESSAGE
                 );
             } else {
-                // Verifica qual opção esta selecionada e retorna o texto
+                // Verifica qual opção está selecionada e retorna o texto
                 String radio = rbInglesT.isSelected() ? rbInglesT.getText() : rbPortuguesT.getText();
               
                 if(radio.equals("Inglês")) {
@@ -487,7 +500,5 @@ public class FrameDicionario extends JFrame
             
             txtPalavraT.requestFocus(); // Foco no campo de tradução da palavra
         });
-        
     }
-    
 }
